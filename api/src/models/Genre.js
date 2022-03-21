@@ -6,6 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define("genre", {
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   });
 };
