@@ -1,27 +1,42 @@
-const { Router } = require("express");
-const router = Router();
+const express = require("express");
 const axios = require("axios");
+const { Genre } = require("../db");
 const { API_KEY } = process.env;
-const { Genre } = require("../db.js");
+
+const router = express.Router();
+
+// --------------- GET /GENRES ---------------------//
+//En una primera instancia deberán traerlos desde rawg y guardarlos en su propia base de datos  y luego ya utilizarlos desde allí
 
 router.get("/", async (req, res) => {
-  let genresDb = await Genre.findAll();
-  if (genresDb.length) {
-    console.log("Generos enviados desde DB");
-    res.status(200).json(genresDb);
+  // busco los generos en mi base de datos
+  let genres = await Genre.findAll();
+
+  if (genres.length) {
+    console.log("Generos enviados desde la base de datos");
+    return res.json(genres);
   }
+
+  // Si no tengo generos en la base de datos, los busco en la API, los guardo y los envio
   let { data } = await axios.get(
     `https://api.rawg.io/api/genres?key=${API_KEY}`
   );
+
   let genresApi = [];
   data.results.map((genre) => {
     genresApi.push({ id: genre.id, name: genre.name });
   });
+
+  // mapeo el id y nombre de los generos en un array de objetos, para posteriormente subirlos a la base de datos con el metodo de bulkCreate
+
   await Genre.bulkCreate(genresApi, {
     ignoreDuplicates: true,
   });
-  genresDb = await Genre.findAll();
-  console.log("ingresados a Db");
-  res.status(200).json(genresDb);
+
+  genres = await Genre.findAll();
+
+  console.log("Genres metidos a base de datos y enviados");
+  return res.send(genres);
 });
+
 module.exports = router;

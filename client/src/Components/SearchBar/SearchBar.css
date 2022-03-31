@@ -1,0 +1,33 @@
+.busca {
+  font-family: monospace;
+}
+.buscador {
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  font-size: 17px;
+  background-color: rgba(128, 31, 128, 0.431);
+  border-radius: 10px;
+}
+
+#in {
+  border-radius: 13px 0 0 13px;
+  border: 1px solid whitesmoke;
+}
+
+#bt {
+  cursor: pointer;
+  border-radius: 0 13px 13px 0;
+  margin-right: 10px;
+  width: 300px;
+  transition-duration: 0.4s;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid whitesmoke;
+  color: whitesmoke;
+}
+
+#bt:hover {
+  background-color: rgba(143, 22, 133, 0.479);
+  color: whitesmoke;
+}

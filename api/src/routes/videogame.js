@@ -9,10 +9,10 @@ router.post("/", async (req, res) => {
   let { name, description, released, rating, platforms, genres, image } =
     req.body;
 
-  if (!name || typeof name !== "string")
-    return { error: "Error: Not a valid Name" };
-  if (!description || typeof description !== "string")
-    return { error: "Error: Not a valid description" };
+  // if (!name || typeof name !== "string")
+  //   return { error: "Error: Not a valid Name" };
+  // if (!description || typeof description !== "string")
+  //   return { error: "Error: Not a valid description" };
 
   try {
     let genreDb = await Genre.findAll({
